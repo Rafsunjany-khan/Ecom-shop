@@ -7,22 +7,29 @@
         <div class="col-lg-5 mx-auto border rounded">
             <h3 class="alert alert-light border rounded">Create an account</h3>
             <form action="{% url 'signup' %}" method="POST">
+                
                  {% csrf_token %}
+
+                {% if error %}
+                 <div class="alert alert-danger" role="alert">
+                   {{error}}
+                 </div>
+                {% endif %}
                 <div class="form-group">
                     <label for="">First Name</label>
-                    <input type="text" class="form-control form-control-sm" name="firstname" id="" placeholder="First Name">
+                    <input type="text" class="form-control form-control-sm" name="firstname" value="{{value.first_name}}" id="" placeholder="First Name">
                 </div>
                 <div class="form-group">
                     <label for="" >Last Name</label>
-                    <input type="text" class="form-control form-control-sm" name="lastname" id="" placeholder="Last Name">
+                    <input type="text" class="form-control form-control-sm" name="lastname" value="{{value.last_name}}" id="" placeholder="Last Name">
                 </div>
                 <div class="form-group">   
                     <label for="">Phone Number</label>
-                    <input type="text" class="form-control form-control-sm" name="phone" id="" placeholder="+8801-------">
+                    <input type="text" class="form-control form-control-sm" name="phone" value="{{value.phone_no}}" id="" placeholder="+8801-------">
                 </div>
                 <div class="form-group">   
                     <label for="">Email</label>
-                    <input type="email" class="form-control form-control-sm" name="email" id="" placeholder="abc@mail.com">
+                    <input type="email" class="form-control form-control-sm" name="email" value="{{value.email}}" id="" placeholder="abc@mail.com">
                 </div>
                 <div class="form-group">
                     <label for="">Password</label>
