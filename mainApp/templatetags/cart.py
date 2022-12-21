@@ -21,4 +21,14 @@ def cart_quantity(product, cart):
 
     return 0
 
-    return False
+@register.filter(name='price_total')
+def price_total(product, cart):
+    return product.price * cart_quantity(product, cart)
+
+@register.filter(name='total_cart_price')
+def total_cart_price(product, cart):
+    sum = 0;
+    for p in product:
+        sum += price_total(p, cart)
+
+    return sum

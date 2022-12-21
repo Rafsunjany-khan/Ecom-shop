@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import home, signup, login
+from .views import home, signup, login, cart
 from .views.login import logout
 
 urlpatterns = [
@@ -8,4 +8,5 @@ urlpatterns = [
     path('signup/', signup.SignUp.as_view(), name='signup'),
     path('login/', login.Login.as_view(), name='login'),
     path('logout/', logout , name='logout'),
+    path('cart/', cart.Cart.as_view(), name='cart')
 ]
