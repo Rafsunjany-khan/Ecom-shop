@@ -3,6 +3,7 @@
 {% block content%}
 
 {% load cart %}
+{% load custom_filter %}
 <div class="container">
     <div class="border border-2">
         <p class="display-4">Cart</p>
@@ -26,9 +27,9 @@
                     <td>{{forloop.counter}}</td>
                     <td><img style="height:80px;"class="rouned-circle" src="{{product.image.url}}"></td>
                     <td>{{product.name}}</td>
-                    <td>{{product.price}}</td>
+                    <td>{{product.price|currency}}</td>
                     <td>{{product|cart_quantity:request.session.cart}}</td>
-                    <td>{{product|price_total:request.session.cart}}</td>
+                    <td>{{product|price_total:request.session.cart|currency}}</td>
 
                 </tr>
                 {% endfor %}
@@ -37,15 +38,46 @@
                 <tr>
                     <th colspan="4"></th>
                     <th class="text-center" colspan="">Total</th>
-                    <th>{{cart_products|total_cart_price:request.session.cart}}</th>
+                    <th>{{cart_products|total_cart_price:request.session.cart|currency}}</th>
                 </tr>
             </tfoot>
         </table>
         <hr>
         <div class="m-3 p-3">
-            <a href="#" class="btn btn-outline-info border rounded col-lg-3 float-right">Check-Out</a>
+            <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-outline-info border rounded col-lg-3 float-right">Check-Out</a>
         </div>
     </div>
+    <!--modal-->
+    <!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Check Out Form</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="m-2 p-2">
+            <form action="{% url 'checkout' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <lebel for="">Address</lebel>
+                    <input type="text" name="address" id="" class="from-control" placeholder="" aria-describedby="helpId">
+                </div>
+                <div class="form-group">
+                    <lebel for="">Phone</lebel>
+                    <input type="text" name="phone_no" id="" class="from-control" placeholder="" aria-describedby="helpId">
+                </div>
+                <input type="submit" class="btn float-right btn-outline-info" value="check out">
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
     
 </div>
 {% endblock content %}
